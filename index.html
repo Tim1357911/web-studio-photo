@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html class="scroll-smooth overflow-x-hidden" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Beranda Studio Foto Portofolio Snap Scroll</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#8FA87B", // Sage Green
+                        "primary-dark": "#758c63",
+                        "background-light": "#FDFBF7", // Cream/Beige
+                        "background-dark": "#1F1E1C", // Warm Charcoal
+                        "surface-light": "#F4F1EB",
+                        "surface-dark": "#2A2825",
+                        "text-main-light": "#2D2D2D",
+                        "text-main-dark": "#EAE8E4",
+                        "text-muted-light": "#666666",
+                        "text-muted-dark": "#A8A6A3",
+                        "accent-gray": "#7D8C86",
+                    },
+                    fontFamily: {
+                        display: ["Playfair Display", "serif"],
+                        body: ["Lato", "sans-serif"],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 12s linear infinite',
+                        'fade-in': 'fadeIn 1s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'reveal': 'reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100%)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        reveal: {
+                            '0%': { transform: 'scale(1.1)' },
+                            '100%': { transform: 'scale(1)' }
+                        }
+                    }
+                },
+            },
+        };
+    </script>
+<style>
+        .thin-border { border-width: 0.5px; }
+        body { transition: background-color 0.5s ease, color 0.5s ease; }
+        ::-webkit-scrollbar { width: 0px; background: transparent; }.hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .text-stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.3); color: transparent; }
+        .dark .text-stroke { -webkit-text-stroke: 1px rgba(255,255,255,0.1); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark antialiased font-body selection:bg-primary selection:text-white overflow-x-hidden">
+<script>
+// Initialize Lenis Smooth Scroll
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    orientation: 'vertical',
+    gestureOrientation: 'vertical',
+    smoothWheel: true,
+    wheelMultiplier: 1,
+    touchMultiplier: 2,
+    infinite: false,
+});
+
+// Integrate Lenis with GSAP ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update);
+
+gsap.ticker.add((time) => {
+    lenis.raf(time * 1000);
+});
+
+gsap.ticker.lagSmoothing(0);
+
+// Handle anchor links with smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            lenis.scrollTo(target, {
+                offset: 0,
+                duration: 1.5,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))
+            });
+        }
+    });
+});
+</script>
+<nav class="fixed w-full z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-gray-200/50 dark:border-white/5 transition-colors duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-5 flex justify-between items-center">
+<a class="group relative z-50" href="#">
+<div class="w-10 h-10 border thin-border border-text-main-light dark:border-text-main-dark rounded-full flex items-center justify-center font-display text-xl italic group-hover:bg-primary group-hover:border-primary group-hover:text-white transition duration-300">
+                P
+            </div>
+</a>
+<!-- Desktop Menu -->
+<div class="hidden md:flex space-x-8 lg:space-x-12 text-xs uppercase tracking-[0.2em] font-medium">
+<a class="hover:text-primary transition-colors relative group" href="#home">Beranda<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+<a class="hover:text-primary transition-colors relative group" href="#packages">Paket<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+<a class="hover:text-primary transition-colors relative group" href="#portfolio">Portofolio<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+<a class="hover:text-primary transition-colors relative group" href="#services">Layanan<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+<a class="hover:text-primary transition-colors relative group" href="#about">Tentang<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+<a class="hover:text-primary transition-colors relative group" href="#contact">Kontak<span class="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all group-hover:w-full"></span></a>
+</div>
+<div class="flex items-center space-x-2 sm:space-x-4 text-xs font-bold text-text-muted-light dark:text-text-muted-dark relative z-50">
+<button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition" onclick="document.documentElement.classList.toggle('dark')">
+<span class="material-symbols-outlined text-lg">contrast</span>
+</button>
+<!-- Mobile Menu Button -->
+<button class="md:hidden p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition" id="mobile-menu-btn" onclick="toggleMobileMenu()">
+<span class="material-symbols-outlined text-lg" id="menu-icon">menu</span>
+</button>
+</div>
+</div>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="fixed inset-0 z-40 bg-background-light/98 dark:bg-background-dark/98 backdrop-blur-lg transform translate-x-full transition-transform duration-500 ease-in-out md:hidden" id="mobile-menu">
+<div class="flex flex-col items-center justify-center h-full space-y-8 px-6">
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#home" onclick="closeMobileMenu()">Beranda</a>
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#packages" onclick="closeMobileMenu()">Paket</a>
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#portfolio" onclick="closeMobileMenu()">Portofolio</a>
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#services" onclick="closeMobileMenu()">Layanan</a>
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#about" onclick="closeMobileMenu()">Tentang</a>
+<a class="text-2xl font-display hover:text-primary transition-colors" href="#contact" onclick="closeMobileMenu()">Kontak</a>
+<div class="pt-8 flex items-center gap-6">
+<a class="w-12 h-12 rounded-full bg-surface-light dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+<a class="w-12 h-12 rounded-full bg-surface-light dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined">mail</span></a>
+<a class="w-12 h-12 rounded-full bg-surface-light dark:bg-white/10 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined">call</span></a>
+</div>
+</div>
+</div>
+
+<script>
+function toggleMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    
+    if (mobileMenu.classList.contains('translate-x-full')) {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+        menuIcon.textContent = 'close';
+        document.body.style.overflow = 'hidden';
+    } else {
+        closeMobileMenu();
+    }
+}
+
+function closeMobileMenu() {
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    
+    mobileMenu.classList.remove('translate-x-0');
+    mobileMenu.classList.add('translate-x-full');
+    menuIcon.textContent = 'menu';
+    document.body.style.overflow = '';
+}
+</script>
+<header class="relative pt-24 pb-16 sm:pt-28 sm:pb-20 px-4 sm:px-6 md:px-12 min-h-screen flex items-center overflow-hidden" id="home">
+<!-- Background Circle -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] md:w-[700px] lg:w-[800px] h-[300px] sm:h-[500px] md:h-[700px] lg:h-[800px] border border-gray-300/30 dark:border-gray-700/30 rounded-full opacity-40 pointer-events-none -z-10"></div>
+
+<!-- Vertical Social Links (Desktop) -->
+<div class="hidden lg:flex flex-col fixed bottom-10 right-8 space-y-4 text-xs tracking-widest uppercase z-30" style="writing-mode: vertical-rl;">
+<a class="hover:text-primary transition text-text-muted-light dark:text-text-muted-dark" href="#">Instagram</a>
+<a class="hover:text-primary transition text-text-muted-light dark:text-text-muted-dark" href="#">Facebook</a>
+<a class="hover:text-primary transition text-text-muted-light dark:text-text-muted-dark" href="#">WhatsApp</a>
+</div>
+
+<div class="flex flex-col lg:flex-row gap-8 lg:gap-16 w-full max-w-5xl mx-auto items-center justify-center relative">
+<!-- Image -->
+<div class="relative z-0 flex justify-center order-1">
+<div class="relative w-[220px] sm:w-[280px] md:w-[320px] lg:w-[350px] h-[320px] sm:h-[420px] md:h-[480px] lg:h-[550px]">
+<div class="absolute inset-0 rounded-t-[8rem] sm:rounded-t-[10rem] rounded-b-[8rem] sm:rounded-b-[10rem] overflow-hidden shadow-2xl">
+<img alt="Portrait Hero" class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&h=1000&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+</div>
+<!-- Price Badge -->
+<div class="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-6 bg-white dark:bg-surface-dark p-3 sm:p-4 md:p-5 rounded-full shadow-xl hidden sm:block">
+<div class="text-center">
+<span class="block text-[9px] sm:text-[10px] text-text-muted-light dark:text-text-muted-dark uppercase tracking-wide">Mulai dari</span>
+<span class="block font-display text-lg sm:text-xl md:text-2xl font-bold text-primary">500rb</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Content -->
+<div class="relative z-10 order-2 text-center lg:text-left">
+<h1 class="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6 sm:mb-8">
+<span class="block">Abadikan</span>
+<span class="block italic text-primary">Setiap</span>
+<span class="block">Momen</span>
+</h1>
+
+<div class="max-w-md mx-auto lg:mx-0">
+<p class="text-sm sm:text-base md:text-lg text-text-muted-light dark:text-text-muted-dark mb-6 sm:mb-8 leading-relaxed">
+Seni menangkap emosi yang jujur dan cahaya alami untuk kenangan yang tak lekang oleh waktu.
+</p>
+<div class="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+<a class="inline-block bg-primary text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-primary-dark transition-colors shadow-lg shadow-primary/30 text-sm" href="#portfolio">
+Lihat Galeri
+</a>
+<a class="inline-block border border-text-main-light dark:border-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-medium hover:bg-primary hover:border-primary hover:text-white transition-all text-sm" href="#contact">
+Reservasi Sesi
+</a>
+</div>
+</div>
+
+<!-- Mobile Social Links -->
+<div class="flex lg:hidden justify-center space-x-6 text-xs font-medium text-text-muted-light dark:text-text-muted-dark mt-8 uppercase tracking-widest">
+<a class="hover:text-primary transition-colors" href="#">Instagram</a>
+<a class="hover:text-primary transition-colors" href="#">Facebook</a>
+<a class="hover:text-primary transition-colors" href="#">WhatsApp</a>
+</div>
+</div>
+</div>
+</header>
+<div id="packages">
+<section class="package-section relative h-screen w-full overflow-hidden group" data-direction="left">
+<div class="package-bg absolute inset-0 z-0">
+<img alt="Keluarga" class="package-img w-full h-full object-cover brightness-50 md:brightness-75" src="https://images.unsplash.com/photo-1609220136736-443140cffec6?w=1200&h=800&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+</div>
+<div class="relative z-10 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-center">
+<div class="package-content max-w-2xl">
+<span class="text-primary text-xs sm:text-sm font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4 block">Paket Eksklusif</span>
+<h2 class="font-display text-5xl sm:text-7xl md:text-9xl text-white leading-none mb-4 sm:mb-6">
+                    Keluarga<span class="text-primary">.</span>
+</h2>
+<p class="text-base sm:text-xl md:text-2xl text-white/80 font-light max-w-lg mb-8 sm:mb-12 leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
+                    Warisan visual penuh kehangatan. Abadikan ikatan yang tak ternilai dalam sesi foto yang santai dan penuh tawa.
+                </p>
+<a class="inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-10 py-4 sm:py-5 bg-white text-black hover:bg-primary hover:text-white transition-all duration-300 rounded-full font-bold tracking-widest text-[10px] sm:text-xs uppercase shadow-2xl group-hover:translate-x-2" href="#contact">
+<span>Iya Saya Mau</span>
+<span class="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="package-line absolute bottom-0 right-0 w-full md:w-1/2 h-1 sm:h-2 bg-primary"></div>
+</section>
+<section class="package-section relative h-screen w-full overflow-hidden group" data-direction="right">
+<div class="package-bg absolute inset-0 z-0">
+<img alt="Maternity" class="package-img w-full h-full object-cover brightness-50 md:brightness-75" src="https://images.unsplash.com/photo-1544126592-807ade215a0b?w=1200&h=800&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-l md:bg-gradient-to-l from-black/80 via-black/40 to-transparent"></div>
+</div>
+<div class="relative z-10 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-center md:items-end md:text-right">
+<div class="package-content max-w-2xl">
+<span class="text-white/60 text-xs sm:text-sm font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4 block">Menanti Buah Hati</span>
+<h2 class="font-display text-5xl sm:text-7xl md:text-9xl text-white leading-none mb-4 sm:mb-6">
+                    Maternity
+                </h2>
+<h3 class="font-display italic text-3xl sm:text-4xl md:text-6xl text-primary-dark opacity-80 mb-6 sm:mb-8 -mt-2 sm:-mt-4 md:mr-2">Elegance</h3>
+<p class="text-base sm:text-xl md:text-2xl text-white/80 font-light max-w-lg md:ml-auto mb-8 sm:mb-12 leading-relaxed border-l-4 md:border-l-0 md:border-r-4 border-white pl-4 sm:pl-6 md:pl-6 md:pr-6">
+                    Rayakan keajaiban kehidupan baru. Sesi intim yang menonjolkan kecantikan perjalanan kehamilan Anda.
+                </p>
+<a class="inline-flex md:flex-row-reverse items-center gap-3 sm:gap-4 px-6 sm:px-10 py-4 sm:py-5 bg-transparent border border-white text-white hover:bg-white hover:text-black transition-all duration-300 rounded-full font-bold tracking-widest text-[10px] sm:text-xs uppercase shadow-2xl group-hover:-translate-x-2" href="#contact">
+<span>Iya Saya Mau</span>
+<span class="material-symbols-outlined text-base sm:text-lg md:rotate-180">arrow_forward</span>
+</a>
+</div>
+</div>
+</section>
+<section class="package-section relative h-screen w-full overflow-hidden group" data-direction="left">
+<div class="package-bg absolute inset-0 z-0">
+<img alt="Anak Anak" class="package-img w-full h-full object-cover brightness-50 md:brightness-75" src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=1200&h=800&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+</div>
+<div class="relative z-10 h-full w-full max-w-7xl mx-auto px-4 sm:px-6 flex flex-col justify-center">
+<div class="package-content max-w-2xl">
+<span class="text-primary text-xs sm:text-sm font-bold tracking-[0.3em] sm:tracking-[0.4em] uppercase mb-3 sm:mb-4 block">Dunia Imajinasi</span>
+<h2 class="font-display text-5xl sm:text-7xl md:text-9xl text-white leading-none mb-4 sm:mb-6">
+                    Anak Anak<span class="text-primary">.</span>
+</h2>
+<p class="text-base sm:text-xl md:text-2xl text-white/80 font-light max-w-lg mb-8 sm:mb-12 leading-relaxed border-l-4 border-primary pl-4 sm:pl-6">
+                    Momen lugu yang tak akan terulang. Kami membekukan waktu dalam bingkai penuh keceriaan dan kepolosan alami.
+                </p>
+<a class="inline-flex items-center gap-3 sm:gap-4 px-6 sm:px-10 py-4 sm:py-5 bg-white text-black hover:bg-primary hover:text-white transition-all duration-300 rounded-full font-bold tracking-widest text-[10px] sm:text-xs uppercase shadow-2xl group-hover:translate-x-2" href="#contact">
+<span>Iya Saya Mau</span>
+<span class="material-symbols-outlined text-base sm:text-lg">arrow_forward</span>
+</a>
+</div>
+</div>
+<div class="package-line absolute bottom-0 right-0 w-full md:w-1/2 h-2 bg-primary"></div>
+</section>
+</div>
+<section class="relative overflow-hidden w-full h-screen bg-[#3E3632]" id="portfolio" style="overscroll-behavior: none;">
+<!-- Slide Counter - positioned below navbar -->
+<div class="absolute top-20 sm:top-24 right-4 sm:right-8 md:right-12 z-20">
+<div class="bg-black/20 backdrop-blur-md rounded-full px-4 py-2 text-[#F4F1EB] font-display italic text-sm md:text-lg border border-white/10 shadow-lg">
+<span id="slide-counter">1/4</span>
+</div>
+</div>
+<div class="h-full flex flex-nowrap will-change-transform" id="portfolio-container" style="width: 400vw; transform: translateX(0);">
+<div class="w-screen h-full flex flex-col justify-center px-6 md:px-12 flex-shrink-0 border-r border-white/10 relative panel">
+<div class="max-w-2xl mx-auto md:mx-0 relative z-10">
+<span class="text-[#C2B280] text-xs font-bold tracking-[0.2em] uppercase mb-4 block">Portofolio Studio</span>
+<h2 class="font-display text-6xl md:text-8xl text-[#F4F1EB] mb-8 leading-tight">
+                    Signature <br/>
+<span class="italic text-[#C2B280]">Aesthetics</span>
+</h2>
+<div class="w-24 h-[2px] bg-white/20 mb-8 relative overflow-hidden">
+<div class="absolute top-0 left-0 h-full bg-[#C2B280] w-0 transition-all duration-100 ease-out" id="progress-indicator"></div>
+</div>
+<p class="text-[#A8A6A3] text-sm md:text-base leading-relaxed font-light max-w-md">
+                    Kurasi visual yang menangkap esensi momen dalam harmoni komposisi dan pencahayaan yang sempurna. Gulir ke bawah untuk menjelajahi galeri.
+                </p>
+<div class="mt-8 flex items-center gap-3 text-[#F4F1EB] opacity-60">
+<span class="material-symbols-outlined animate-bounce">east</span>
+<span class="text-xs uppercase tracking-widest">Scroll untuk Jelajahi</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-5 pointer-events-none">
+<span class="font-display text-[20rem] leading-none text-white italic">00</span>
+</div>
+</div>
+<div class="w-screen h-full flex items-center justify-center p-6 md:p-12 flex-shrink-0 relative border-r border-white/5 panel">
+<div class="w-full max-w-4xl h-[70vh] relative group">
+<div class="absolute -top-12 -left-4 md:-left-8 text-[#F4F1EB] opacity-20 font-display text-8xl md:text-9xl italic z-0">01</div>
+<div class="relative overflow-hidden w-full h-full rounded-sm z-10 shadow-2xl">
+<img alt="Editorial Fashion" class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100" src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=1000&h=1400&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#3E3632] via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+<h3 class="font-display text-3xl md:text-5xl text-[#F4F1EB] italic mb-2">Editorial Fashion</h3>
+<p class="text-[#C2B280] text-xs uppercase tracking-widest">High Concept • Studio</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-screen h-full flex items-center justify-center p-6 md:p-12 flex-shrink-0 relative border-r border-white/5 panel">
+<div class="w-full max-w-4xl h-[70vh] relative group">
+<div class="absolute -bottom-12 -right-4 md:-right-8 text-[#F4F1EB] opacity-20 font-display text-8xl md:text-9xl italic z-0">02</div>
+<div class="relative overflow-hidden w-full h-full rounded-sm z-10 shadow-2xl">
+<img alt="Commercial Product" class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1000&h=1400&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#3E3632] opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+<h3 class="font-display text-3xl md:text-5xl text-[#F4F1EB] italic mb-2">Commercial Product</h3>
+<p class="text-[#C2B280] text-xs uppercase tracking-widest">Detail • Lighting</p>
+</div>
+</div>
+</div>
+</div>
+<div class="w-screen h-full flex items-center justify-center p-6 md:p-12 flex-shrink-0 relative panel">
+<div class="w-full max-w-4xl h-[70vh] relative group">
+<div class="absolute -top-12 -right-4 md:-right-8 text-[#F4F1EB] opacity-20 font-display text-8xl md:text-9xl italic z-0">03</div>
+<div class="relative overflow-hidden w-full h-full rounded-sm z-10 shadow-2xl">
+<img alt="Atmospheric Portrait" class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110 opacity-90 group-hover:opacity-100" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1000&h=1400&fit=crop&q=80"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#3E3632] via-transparent to-transparent opacity-80"></div>
+<div class="absolute bottom-0 left-0 p-8 md:p-12 w-full">
+<h3 class="font-display text-3xl md:text-5xl text-[#F4F1EB] italic mb-2">Mood &amp; Atmosphere</h3>
+<p class="text-[#C2B280] text-xs uppercase tracking-widest">Cinematic • Emotion</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script>
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+        
+        // =============================================
+        // PACKAGE SECTIONS ANIMATIONS
+        // =============================================
+        const packageSections = gsap.utils.toArray('.package-section');
+        
+        packageSections.forEach((section, index) => {
+            const bg = section.querySelector('.package-bg');
+            const bgImg = section.querySelector('.package-img');
+            const content = section.querySelector('.package-content');
+            const line = section.querySelector('.package-line');
+            const direction = section.dataset.direction || 'left';
+            const xStart = direction === 'left' ? -100 : 100;
+            
+            // Image ZOOM OUT effect on scroll (starts zoomed in, zooms out as you scroll)
+            if (bgImg) {
+                gsap.fromTo(bgImg, 
+                    { scale: 1.3 },
+                    {
+                        scale: 1,
+                        ease: "none",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top bottom",
+                            end: "bottom top",
+                            scrub: 1
+                        }
+                    }
+                );
+            }
+            
+            // Background parallax effect (subtle vertical movement)
+            if (bgImg) {
+                gsap.to(bgImg, {
+                    yPercent: 15,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: true
+                    }
+                });
+            }
+            
+            // Content animation
+            gsap.fromTo(content,
+                { 
+                    x: xStart,
+                    opacity: 0 
+                },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 70%",
+                        end: "top 30%",
+                        scrub: 0.8,
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+            
+            // Animate individual elements inside content
+            const contentElements = content.querySelectorAll('span, h2, h3, p, a');
+            contentElements.forEach((el, i) => {
+                gsap.fromTo(el,
+                    { 
+                        y: 30,
+                        opacity: 0 
+                    },
+                    {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.8,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 60%",
+                            toggleActions: "play none none reverse"
+                        },
+                        delay: i * 0.1
+                    }
+                );
+            });
+            
+            // Line animation (if exists)
+            if (line) {
+                gsap.fromTo(line,
+                    { scaleX: 0, transformOrigin: "left center" },
+                    {
+                        scaleX: 1,
+                        duration: 1.5,
+                        ease: "power2.inOut",
+                        scrollTrigger: {
+                            trigger: section,
+                            start: "top 40%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            }
+        });
+        
+        // =============================================
+        // PORTFOLIO HORIZONTAL SCROLL
+        // =============================================
+        const panels = gsap.utils.toArray("#portfolio-container .panel");
+        const container = document.getElementById('portfolio-container');
+        const portfolioSection = document.getElementById('portfolio');
+        const progressBar = document.getElementById('progress-indicator');
+        const slideCounter = document.getElementById('slide-counter');
+        
+        if (!container || !portfolioSection || panels.length === 0) {
+            console.error('Portfolio elements not found');
+            return;
+        }
+        
+        const totalPanels = panels.length;
+        
+        // Function to get the total width to scroll
+        function getScrollAmount() {
+            return (totalPanels - 1) * window.innerWidth;
+        }
+        
+        // Create horizontal scroll animation
+        function createHorizontalScroll() {
+            // Kill existing ScrollTriggers for portfolio
+            ScrollTrigger.getAll().forEach(st => {
+                if (st.trigger === portfolioSection) st.kill();
+            });
+            
+            // Reset container position
+            gsap.set(container, { x: 0 });
+            
+            // Main horizontal scroll animation
+            gsap.to(container, {
+                x: () => -getScrollAmount(),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: portfolioSection,
+                    start: "top top",
+                    end: () => `+=${getScrollAmount()}`,
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true,
+                    snap: {
+                        snapTo: 1 / (totalPanels - 1),
+                        duration: { min: 0.2, max: 0.5 },
+                        delay: 0,
+                        ease: "power1.inOut"
+                    },
+                    onUpdate: (self) => {
+                        // Update progress bar
+                        if (progressBar) {
+                            progressBar.style.width = (self.progress * 100) + "%";
+                        }
+                        // Update slide counter
+                        if (slideCounter) {
+                            let currentIndex = Math.round(self.progress * (totalPanels - 1)) + 1;
+                            currentIndex = Math.max(1, Math.min(currentIndex, totalPanels));
+                            slideCounter.innerText = `${currentIndex}/${totalPanels}`;
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Initialize
+        createHorizontalScroll();
+        
+        // =============================================
+        // SERVICES SECTION ANIMATIONS
+        // =============================================
+        const serviceCards = gsap.utils.toArray('#services .group');
+        serviceCards.forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 60, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    delay: i * 0.1
+                }
+            );
+        });
+        
+        // =============================================
+        // ABOUT SECTION ANIMATIONS
+        // =============================================
+        const aboutSection = document.getElementById('about');
+        if (aboutSection) {
+            const aboutImage = aboutSection.querySelector('.relative.w-\\[300px\\]');
+            const aboutContent = aboutSection.querySelector('.flex.flex-col.justify-center');
+            
+            if (aboutImage) {
+                gsap.fromTo(aboutImage,
+                    { x: -80, opacity: 0, rotation: -5 },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        rotation: 0,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: aboutSection,
+                            start: "top 60%",
+                            toggleActions: "play none none reverse"
+                        }
+                    }
+                );
+            }
+            
+            if (aboutContent) {
+                gsap.fromTo(aboutContent,
+                    { x: 80, opacity: 0 },
+                    {
+                        x: 0,
+                        opacity: 1,
+                        duration: 1.2,
+                        ease: "power3.out",
+                        scrollTrigger: {
+                            trigger: aboutSection,
+                            start: "top 60%",
+                            toggleActions: "play none none reverse"
+                        },
+                        delay: 0.2
+                    }
+                );
+            }
+        }
+        
+        // =============================================
+        // TESTIMONIALS ANIMATIONS
+        // =============================================
+        const testimonialCards = gsap.utils.toArray('.bg-background-light.dark\\:bg-background-dark.p-10');
+        testimonialCards.forEach((card, i) => {
+            gsap.fromTo(card,
+                { y: 50, opacity: 0, scale: 0.95 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.8,
+                    ease: "back.out(1.2)",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    },
+                    delay: i * 0.15
+                }
+            );
+        });
+        
+        // Refresh on window load (for images)
+        window.addEventListener('load', () => {
+            ScrollTrigger.refresh();
+        });
+        
+        // Refresh on resize with debounce
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 250);
+        });
+    });
+</script>
+<section class="min-h-screen py-24 bg-surface-light dark:bg-[#1A1917] snap-start flex flex-col justify-center" id="services">
+<div class="max-w-7xl mx-auto px-6 w-full">
+<div class="text-center mb-20">
+<span class="text-primary text-xs font-bold tracking-[0.2em] uppercase">Apa yang Kami Tawarkan</span>
+<h2 class="font-display text-4xl md:text-6xl mt-4 text-text-main-light dark:text-text-main-dark">Layanan Kami</h2>
+</div>
+<div class="relative grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-[minmax(200px,auto)]">
+<div class="md:col-span-7 md:row-span-2 group relative h-[500px] md:h-[650px] rounded-sm overflow-hidden cursor-pointer shadow-xl">
+<img alt="Personal" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=1000&fit=crop&q=80"/>
+<div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
+<div class="flex justify-end">
+<span class="text-white/80 font-display italic text-2xl">01</span>
+</div>
+<div>
+<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai IDR 1.5jt</span>
+<h3 class="font-display text-4xl md:text-6xl text-white mb-4 italic">Personal</h3>
+<p class="text-white/80 text-sm font-light leading-relaxed max-w-xs opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            Sesi potret individu untuk branding diri atau kenangan pribadi yang tak terlupakan.
+                        </p>
+</div>
+</div>
+</div>
+<div class="md:col-span-5 md:mt-12 group relative h-[400px] md:h-[450px] rounded-sm overflow-hidden cursor-pointer shadow-xl">
+<img alt="Events" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop&q=80"/>
+<div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+<div class="flex justify-end">
+<span class="text-white/80 font-display italic text-2xl">02</span>
+</div>
+<div>
+<h3 class="font-display text-3xl md:text-4xl text-white mb-2 italic">Events</h3>
+<span class="text-xs text-white/80 uppercase tracking-widest">Mulai IDR 5jt</span>
+<p class="text-white/80 text-xs font-light mt-3 leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                             Dokumentasi acara spesial dengan sentuhan sinematik.
+                         </p>
+</div>
+</div>
+</div>
+<div class="md:col-span-5 md:mt-[-80px] group relative h-[350px] md:h-[380px] rounded-sm overflow-hidden cursor-pointer shadow-xl z-20">
+<img alt="Commercial" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop&q=80"/>
+<div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
+<div class="flex justify-end">
+<span class="text-white/80 font-display italic text-2xl">03</span>
+</div>
+<div>
+<h3 class="font-display text-3xl md:text-4xl text-white mb-2 italic">Commercial</h3>
+<span class="text-xs text-white/80 uppercase tracking-widest">Custom Quote</span>
+<p class="text-white/80 text-xs font-light mt-3 leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            Kampanye iklan untuk meningkatkan citra brand Anda.
+                        </p>
+</div>
+</div>
+</div>
+<div class="md:col-span-8 md:col-start-3 md:mt-8 group relative h-[450px] rounded-sm overflow-hidden cursor-pointer shadow-xl">
+<img alt="Group" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1000&h=600&fit=crop&q=80"/>
+<div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-10">
+<div class="flex justify-end">
+<span class="text-white/80 font-display italic text-2xl">04</span>
+</div>
+<div>
+<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai IDR 2.5jt</span>
+<h3 class="font-display text-4xl md:text-5xl text-white mb-4 italic">Group</h3>
+<p class="text-white/80 text-sm font-light leading-relaxed max-w-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            Foto grup untuk keluarga besar, tim korporat, atau komunitas sahabat.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="min-h-screen py-16 sm:py-24 bg-background-light dark:bg-background-dark snap-start flex items-center" id="about">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 w-full">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 items-center">
+<div class="relative flex justify-center lg:justify-start">
+<div class="relative w-[260px] h-[340px] sm:w-[300px] sm:h-[400px] md:w-[400px] md:h-[500px]">
+<div class="absolute top-0 right-0 w-full h-full rounded-tr-[80px] sm:rounded-tr-[100px] rounded-bl-[80px] sm:rounded-bl-[100px] overflow-hidden shadow-2xl z-10">
+<img alt="Studio Atmosphere" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1554048612-b6a482bc67e5?w=600&h=800&fit=crop&q=80"/>
+</div>
+<div class="absolute -top-6 sm:-top-8 -right-6 sm:-right-8 w-16 sm:w-24 h-16 sm:h-24 border border-primary rounded-full z-0 opacity-60"></div>
+<div class="absolute -bottom-6 sm:-bottom-8 -left-6 sm:-left-8 w-24 sm:w-32 h-24 sm:h-32 border border-text-muted-light/30 rounded-full z-0 opacity-60"></div>
+<div class="absolute top-1/2 -left-8 sm:-left-12 w-[110%] h-[110%] border thin-border border-text-main-light/10 dark:border-white/10 rounded-[45%] animate-spin-slow -z-10"></div>
+</div>
+</div>
+<div class="flex flex-col justify-center text-center lg:text-left">
+<span class="text-primary text-xs font-bold tracking-[0.3em] uppercase mb-3 sm:mb-4">Tentang Photo Studio</span>
+<h2 class="font-display text-4xl sm:text-5xl lg:text-7xl text-text-main-light dark:text-text-main-dark mb-6 sm:mb-8 leading-tight">
+                    More Than <br/><span class="italic text-primary-dark dark:text-primary">Just a Picture.</span>
+</h2>
+<div class="space-y-4 sm:space-y-6 text-text-muted-light dark:text-text-muted-dark text-base sm:text-lg font-light leading-relaxed">
+<p>
+                        Kami percaya bahwa setiap foto memiliki jiwa. Di Photo Studio, kami tidak hanya menekan tombol rana; kami mengamati, merasakan, dan menangkap esensi cerita Anda dalam sebuah karya seni visual yang abadi.
+                    </p>
+<p class="hidden sm:block">
+                        Didirikan oleh seniman visual yang berdedikasi, studio kami dirancang dengan pendekatan organik. Menggabungkan tekstur alami, pencahayaan lembut, dan komposisi yang thoughtful untuk menciptakan potret yang tidak hanya indah dipandang, tetapi juga menyentuh hati.
+                    </p>
+</div>
+<div class="mt-8 sm:mt-10 flex gap-6 sm:gap-8 justify-center lg:justify-start">
+<div class="flex flex-col">
+<span class="font-display text-3xl sm:text-4xl text-text-main-light dark:text-text-main-dark">10+</span>
+<span class="text-[10px] sm:text-xs uppercase tracking-widest text-text-muted-light mt-1">Tahun Pengalaman</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display text-3xl sm:text-4xl text-text-main-light dark:text-text-main-dark">5k+</span>
+<span class="text-[10px] sm:text-xs uppercase tracking-widest text-text-muted-light mt-1">Sesi Terabadikan</span>
+</div>
+</div>
+<div class="mt-10 sm:mt-12 flex justify-center lg:justify-start">
+<a class="inline-block border-b border-text-main-light dark:border-white pb-1 text-xs uppercase tracking-[0.2em] hover:text-primary hover:border-primary transition-all duration-300" href="#contact">
+                        Kenali Tim Kami
+                    </a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-32 bg-surface-light dark:bg-surface-dark snap-start border-t border-gray-200/50 dark:border-white/5">
+<div class="max-w-7xl mx-auto px-6">
+<div class="text-center mb-16">
+<span class="text-primary text-xs font-bold tracking-[0.2em] uppercase">Testimoni</span>
+<h2 class="font-display text-3xl sm:text-4xl mt-3 text-text-main-light dark:text-text-main-dark">Kata Mereka</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+<div class="bg-background-light dark:bg-background-dark p-6 sm:p-10 rounded-tr-[40px] sm:rounded-tr-[50px] rounded-bl-[40px] sm:rounded-bl-[50px] shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
+<span class="material-symbols-outlined absolute top-4 sm:top-6 right-4 sm:right-6 text-5xl sm:text-6xl text-primary opacity-10 rotate-180 group-hover:scale-110 transition-transform">format_quote</span>
+<p class="text-text-muted-light dark:text-text-muted-dark mb-6 sm:mb-8 italic leading-relaxed pt-2 sm:pt-4 relative z-10 text-sm sm:text-base">
+                    "Tim Photo Studio membuat saya merasa sangat nyaman. Hasil fotonya jauh lebih baik dari yang saya bayangkan. Benar-benar ajaib!"
+                </p>
+<div class="flex items-center gap-3 sm:gap-4 relative z-10">
+<img alt="Client 1" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&q=80"/>
+<div>
+<h4 class="font-bold font-display text-sm text-text-main-light dark:text-text-main-dark">Ochi Rosdiana</h4>
+<p class="text-[10px] uppercase tracking-wider text-text-muted-light">Aktris</p>
+</div>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 sm:p-10 rounded-tl-[40px] sm:rounded-tl-[50px] rounded-br-[40px] sm:rounded-br-[50px] shadow-sm hover:shadow-lg transition-all duration-300 md:-translate-y-6 relative overflow-hidden group">
+<span class="material-symbols-outlined absolute top-4 sm:top-6 right-4 sm:right-6 text-5xl sm:text-6xl text-primary opacity-10 rotate-180 group-hover:scale-110 transition-transform">format_quote</span>
+<p class="text-text-muted-light dark:text-text-muted-dark mb-6 sm:mb-8 italic leading-relaxed pt-2 sm:pt-4 relative z-10 text-sm sm:text-base">
+                    "Terima kasih untuk foto wisuda yang luar biasa. Studionya estetik dan krunya sangat ramah. Sangat direkomendasikan!"
+                </p>
+<div class="flex items-center gap-3 sm:gap-4 relative z-10">
+<img alt="Client 2" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&q=80"/>
+<div>
+<h4 class="font-bold font-display text-sm text-text-main-light dark:text-text-main-dark">Meinar Rizkia</h4>
+<p class="text-[10px] uppercase tracking-wider text-text-muted-light">Model</p>
+</div>
+</div>
+</div>
+<div class="bg-background-light dark:bg-background-dark p-6 sm:p-10 rounded-tr-[40px] sm:rounded-tr-[50px] rounded-bl-[40px] sm:rounded-bl-[50px] shadow-sm hover:shadow-lg transition-all duration-300 relative overflow-hidden group">
+<span class="material-symbols-outlined absolute top-4 sm:top-6 right-4 sm:right-6 text-5xl sm:text-6xl text-primary opacity-10 rotate-180 group-hover:scale-110 transition-transform">format_quote</span>
+<p class="text-text-muted-light dark:text-text-muted-dark mb-6 sm:mb-8 italic leading-relaxed pt-2 sm:pt-4 relative z-10 text-sm sm:text-base">
+                    "Berorientasi pada detail dan penuh semangat. Mereka tidak hanya mengambil foto; mereka mengarahkan mood dengan sempurna."
+                </p>
+<div class="flex items-center gap-3 sm:gap-4 relative z-10">
+<img alt="Client 3" class="w-10 h-10 rounded-full object-cover grayscale group-hover:grayscale-0 transition-all" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&q=80"/>
+<div>
+<h4 class="font-bold font-display text-sm text-text-main-light dark:text-text-main-dark">Dynasty Pramesta</h4>
+<p class="text-[10px] uppercase tracking-wider text-text-muted-light">Pengusaha</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<footer class="bg-background-light dark:bg-background-dark pt-16 sm:pt-24 pb-8 sm:pb-10 border-t border-gray-200 dark:border-white/5 transition-colors duration-300 snap-start" id="contact">
+<div class="max-w-7xl mx-auto px-4 sm:px-6">
+<div class="mb-14 sm:mb-20 text-center">
+<h3 class="font-display text-3xl sm:text-4xl md:text-6xl mb-4 sm:mb-6 leading-tight text-text-main-light dark:text-text-main-dark">Siap Mengabadikan<br/>Momen Anda?</h3>
+<p class="text-text-muted-light dark:text-text-muted-dark mb-8 sm:mb-10 max-w-lg mx-auto leading-relaxed text-sm sm:text-base px-4">
+                Hubungi kami untuk konsultasi gratis mengenai sesi foto impian Anda.
+            </p>
+<a class="inline-block px-8 sm:px-12 py-4 sm:py-5 bg-text-main-light dark:bg-white text-white dark:text-background-dark font-bold tracking-widest rounded-full hover:bg-primary hover:text-white dark:hover:bg-primary dark:hover:text-white transition-all duration-300 shadow-xl text-xs sm:text-sm" href="#">
+                HUBUNGI KAMI
+            </a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12 sm:mb-16 pt-12 sm:pt-16 border-t border-gray-200 dark:border-white/5">
+<div class="col-span-2">
+<div class="w-10 h-10 border thin-border border-text-main-light dark:border-text-main-dark rounded-full flex items-center justify-center font-display text-xl italic mb-4 sm:mb-6">
+                    P
+                </div>
+<p class="text-text-muted-light dark:text-text-muted-dark max-w-sm mb-4 sm:mb-6 text-xs sm:text-sm leading-relaxed">
+                    Photo Studio menciptakan warisan visual untuk generasi mendatang melalui fotografi yang penuh perasaan dan artistik.
+                </p>
+<div class="flex space-x-3 sm:space-x-4">
+<a class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-light dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined text-base sm:text-lg">photo_camera</span></a>
+<a class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-light dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined text-base sm:text-lg">mail</span></a>
+<a class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-light dark:bg-white/5 flex items-center justify-center hover:bg-primary hover:text-white transition" href="#"><span class="material-symbols-outlined text-base sm:text-lg">call</span></a>
+</div>
+</div>
+<div>
+<h4 class="font-bold uppercase tracking-widest mb-4 sm:mb-6 text-[10px] sm:text-xs text-text-main-light dark:text-text-main-dark">Perusahaan</h4>
+<ul class="space-y-3 sm:space-y-4 text-text-muted-light dark:text-text-muted-dark text-xs sm:text-sm">
+<li><a class="hover:text-primary transition" href="#about">Tentang Kami</a></li>
+<li><a class="hover:text-primary transition" href="#portfolio">Portofolio</a></li>
+<li><a class="hover:text-primary transition" href="#">Blog</a></li>
+<li><a class="hover:text-primary transition" href="#contact">Kontak</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold uppercase tracking-widest mb-4 sm:mb-6 text-[10px] sm:text-xs text-text-main-light dark:text-text-main-dark">Informasi</h4>
+<ul class="space-y-3 sm:space-y-4 text-text-muted-light dark:text-text-muted-dark text-xs sm:text-sm">
+<li><a class="hover:text-primary transition" href="#">Pusat Bantuan</a></li>
+<li><a class="hover:text-primary transition" href="#packages">Harga Paket</a></li>
+<li><a class="hover:text-primary transition" href="#">Kebijakan Privasi</a></li>
+<li><a class="hover:text-primary transition" href="#">Syarat &amp; Ketentuan</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-200 dark:border-white/5 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] sm:text-xs text-text-muted-light dark:text-text-muted-dark">
+<p>© 2024 Photo Studio. Hak Cipta Dilindungi.</p>
+<div class="mt-3 sm:mt-4 md:mt-0 space-x-4 sm:space-x-6">
+<span>Jakarta, Indonesia</span>
+</div>
+</div>
+</div>
+</footer>
+</body></html>
