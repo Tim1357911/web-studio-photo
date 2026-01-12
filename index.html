@@ -76,9 +76,13 @@ const lenis = new Lenis({
     orientation: 'vertical',
     gestureOrientation: 'vertical',
     smoothWheel: true,
+    smoothTouch: true,
     wheelMultiplier: 1,
-    touchMultiplier: 2,
+    touchMultiplier: 1.5,
     infinite: false,
+    syncTouch: true,
+    syncTouchLerp: 0.075,
+    touchInertiaMultiplier: 25,
 });
 
 // Integrate Lenis with GSAP ScrollTrigger
@@ -672,41 +676,41 @@ Reservasi Sesi
 <span class="text-white/80 font-display italic text-2xl">01</span>
 </div>
 <div>
-<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai IDR 1.5jt</span>
+<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai Rp1.500.000</span>
 <h3 class="font-display text-4xl md:text-6xl text-white mb-4 italic">Personal</h3>
 <p class="text-white/80 text-sm font-light leading-relaxed max-w-xs opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                            Sesi potret individu untuk branding diri atau kenangan pribadi yang tak terlupakan.
+                            Sesi potret individu untuk profil profesional, personal branding, atau kenangan pribadi. Termasuk 1 jam sesi foto, 10 foto edit, dan 3 cetak ukuran 4R.
                         </p>
 </div>
 </div>
 </div>
 <div class="md:col-span-5 md:mt-12 group relative h-[400px] md:h-[450px] rounded-sm overflow-hidden cursor-pointer shadow-xl">
 <img alt="Events" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=600&fit=crop&q=80"/>
-<div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
-<div class="flex justify-end">
-<span class="text-white/80 font-display italic text-2xl">02</span>
-</div>
+<div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-start z-10">
+<div class="flex justify-between items-start">
 <div>
-<h3 class="font-display text-3xl md:text-4xl text-white mb-2 italic">Events</h3>
-<span class="text-xs text-white/80 uppercase tracking-widest">Mulai IDR 5jt</span>
-<p class="text-white/80 text-xs font-light mt-3 leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                             Dokumentasi acara spesial dengan sentuhan sinematik.
+<span class="inline-block px-3 py-1 mb-3 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai Rp5.000.000</span>
+<h3 class="font-display text-2xl md:text-3xl text-white mb-2 italic">Events</h3>
+<p class="text-white/80 text-xs font-light mt-3 leading-relaxed max-w-[200px] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                             Dokumentasi acara pernikahan, ulang tahun, atau gathering dengan hasil foto dan video sinematik berkualitas tinggi.
                          </p>
+</div>
+<span class="text-white/80 font-display italic text-2xl">02</span>
 </div>
 </div>
 </div>
 <div class="md:col-span-5 md:mt-[-80px] group relative h-[350px] md:h-[380px] rounded-sm overflow-hidden cursor-pointer shadow-xl z-20">
 <img alt="Commercial" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110 brightness-90 group-hover:brightness-75" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=600&fit=crop&q=80"/>
-<div class="absolute inset-0 p-8 flex flex-col justify-between z-10">
-<div class="flex justify-end">
-<span class="text-white/80 font-display italic text-2xl">03</span>
-</div>
+<div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-10">
+<div class="flex justify-between items-end">
 <div>
-<h3 class="font-display text-3xl md:text-4xl text-white mb-2 italic">Commercial</h3>
-<span class="text-xs text-white/80 uppercase tracking-widest">Custom Quote</span>
-<p class="text-white/80 text-xs font-light mt-3 leading-relaxed opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                            Kampanye iklan untuk meningkatkan citra brand Anda.
+<span class="inline-block px-3 py-1 mb-3 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai Rp3.000.000</span>
+<h3 class="font-display text-2xl md:text-3xl text-white mb-2 italic">Commercial</h3>
+<p class="text-white/80 text-xs font-light mt-3 leading-relaxed max-w-[200px] opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                            Foto produk, katalog, dan kampanye iklan profesional untuk meningkatkan citra brand Anda.
                         </p>
+</div>
+<span class="text-white/80 font-display italic text-2xl">03</span>
 </div>
 </div>
 </div>
@@ -717,10 +721,10 @@ Reservasi Sesi
 <span class="text-white/80 font-display italic text-2xl">04</span>
 </div>
 <div>
-<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai IDR 2.5jt</span>
+<span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold tracking-widest text-white uppercase border border-white/30 backdrop-blur-sm rounded-full">Mulai Rp2.500.000</span>
 <h3 class="font-display text-4xl md:text-5xl text-white mb-4 italic">Group</h3>
 <p class="text-white/80 text-sm font-light leading-relaxed max-w-md opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                            Foto grup untuk keluarga besar, tim korporat, atau komunitas sahabat.
+                            Foto grup untuk keluarga besar, tim korporat, reuni, atau komunitas. Termasuk 2 jam sesi, 20 foto edit, dan 5 cetak ukuran 4R.
                         </p>
 </div>
 </div>
